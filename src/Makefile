@@ -401,6 +401,7 @@ rocksdb_flags:$(ROCKSDB_LIBA)
 $(ROCKSDB_LIBA): $(SNAPPY_LIBA) $(ROCKSDB_PATH)
 	@echo ">>>>> Building ROCKSDB" && \
 	cd ${ROCKSDB_PATH} && \
+	DISABLE_WARNING_AS_ERROR=1 ROCKSDB_DISABLE_TCMALLOC=1 \
 	CXXFLAGS="-I${SNAPPY_PATH}" CFLAGS="-I${SNAPPY_PATH}" LDFLAGS="${SNAPPY_PATH}/.libs" USE_RTTI=1 $(MAKE) static_lib && \
 	echo "<<<<< Done building ROCKSDB"
 
