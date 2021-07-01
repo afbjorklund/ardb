@@ -99,6 +99,7 @@ ZOOKEEPER_LIBHTA=${ZOOKEEPER_PATH}/.libs/libhashtable.a
 SPARSEHASH_VER=sparsehash-sparsehash-2.0.3
 SPARSEHASH_PATH=${LIB_PATH}/${SPARSEHASH_VER}
 SPARSEHASH_FILE=${SPARSEHASH_PATH}.tar.gz
+SPARSEHASH_PATCH=sparsehash-sparsehash-2.0.3.patch
 SPARSEHASH_CONFIG=${SPARSEHASH_PATH}/src/config.h
 
 # Cross compiling variables
@@ -519,7 +520,9 @@ sparsehash: $(SPARSEHASH_CONFIG)
 $(SPARSEHASH_CONFIG):
 	echo ">>>>> Building sparsehash" && \
 	cd ${LIB_PATH}; tar zxvf ${SPARSEHASH_FILE};\
-	cd ${SPARSEHASH_PATH}; ./configure; \
+	cd ${SPARSEHASH_PATH}; \
+	patch -p1 -i ../${SPARSEHASH_PATCH}; \
+	./configure; \
 	${MAKE} src/sparsehash/internal/sparseconfig.h && \
 	echo ">>>>> Done building sparsehash"
 

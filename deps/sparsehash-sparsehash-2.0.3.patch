@@ -1,0 +1,12 @@
+diff -ur sparsehash-sparsehash-2.0.3.orig/src/sparsehash/internal/libc_allocator_with_realloc.h sparsehash-sparsehash-2.0.3/src/sparsehash/internal/libc_allocator_with_realloc.h
+--- sparsehash-sparsehash-2.0.3.orig/src/sparsehash/internal/libc_allocator_with_realloc.h	2015-10-12 23:13:52.000000000 +0200
++++ sparsehash-sparsehash-2.0.3/src/sparsehash/internal/libc_allocator_with_realloc.h	2021-06-02 18:24:41.827105517 +0200
+@@ -65,7 +65,7 @@
+     free(p);
+   }
+   pointer reallocate(pointer p, size_type n) {
+-    return static_cast<pointer>(realloc(p, n * sizeof(value_type)));
++    return static_cast<pointer>(realloc(static_cast<void*>(p), n * sizeof(value_type)));
+   }
+ 
+   size_type max_size() const  {
